@@ -3,6 +3,7 @@ import Flight from './Flight';
 import { useEffect, useState } from "react";
 import { FlightContainer, Item } from "./styles/Flight.styled";
 import Logo from '../optriplogo.png';
+import { LinearProgress } from "@mui/material";
 
 
 export default function Cart() {
@@ -17,9 +18,13 @@ export default function Cart() {
     useEffect(() => {
         setFlights(Flights);
     }, [setFlights])
+    const [fetching, setFetching] = useState(true)
 
-    return (
+    return !fetching ? (
         <PageContainer>
+                        
+            {/*hacer que aumente a medida que avanza el request*/}
+
             <Image src={Logo} />
         <Header> Opciones de vuelos </Header>
         <StyledProductList>
@@ -31,6 +36,8 @@ export default function Cart() {
 
         
         </PageContainer>
-    )
+    ):(<div><LinearProgress/>
+    <button onClick={() => setFetching(false)} > View</button>
+    </div>)
 }
 
