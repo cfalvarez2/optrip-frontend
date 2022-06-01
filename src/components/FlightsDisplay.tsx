@@ -6,30 +6,32 @@ import Logo from '../optriplogo.png';
 import { LinearProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Instruction } from "./styles/LandingForm.styled";
 
 export default function FlightsDisplay() {
     const data = useParams()
     var date = new Date(data.date)
     console.log(getFormattedDate(date))
-    const [Flights, setFlights]  = useState([ 
-        {key: 1, name: 'Vuelo 1', price: 1, takeoff_time: 'Hora 1',duration: 'Duracion'},
-        {key: 2, name: 'Vuelo 2', price: 2, takeoff_time: 'Hora 2',duration: 'Duracion'},
-        {key: 3, name: 'Vuelo 3', price: 3, takeoff_time: 'Hora 3',duration: 'Duracion'},
-        {key: 4, name: 'Vuelo 4', price: 4, takeoff_time: 'Hora 4',duration: 'Duracion'},
-        {key: 5, name: 'Vuelo 5', price: 5, takeoff_time: 'Hora 5',duration: 'Duracion'}
-    ]);
+    const [Flights, setFlights]  = useState([]);
 
     useEffect(() => {
         setFlights(Flights);
     }, [setFlights])
     const [fetching, setFetching] = useState(true)
     useEffect(() => {
-        axios.get(`$http://localhost:5000/flights`,
-        {params:{origin: "SCL", destination: "CCP", date: "31/05/2022"}}
+            getFlights()
+      });
+    const getFlights = ()=>{
+    const payload = JSON.stringify({origin: data.from, destination: data.to, date: getFormattedDate(date)})
+        axios.post("http://localhost:5000/flights",
+        JSON.parse(payload)
         ).then(( response ) => {
             console.log(response)
+            const flights = response.data.flights
+            setFlights(flights)
+            setFetching(false)
           })
-        })
+    }
         function getFormattedDate(date:Date) {
             var year = date.getFullYear();
           
@@ -39,9 +41,9 @@ export default function FlightsDisplay() {
             var day = date.getDate().toString();
             day = day.length > 1 ? day : '0' + day;
             
-            return month + '/' + day + '/' + year;
+            return day + '/' + month + '/' + year;
           }
-    return !fetching ? (
+    return !fetching  ? (Flights?(
         <PageContainer>
                         
             {/*hacer que aumente a medida que avanza el request*/}
@@ -52,13 +54,14 @@ export default function FlightsDisplay() {
             { Flights.map( (flight) => (<div> <FlightContainer><Flight flight={flight} key={flight.key} > </Flight>
 
             </FlightContainer></div> )) }
+        
 
         </StyledProductList>
 
         
-        </PageContainer>
+        </PageContainer>):(<Instruction>No hay vuelos disponibles</Instruction>)
     ):(<div><LinearProgress/>
-    <button onClick={() => setFetching(false)} > View</button>
+    <Instruction>Esto puede tomar unos segundos</Instruction>
     </div>)
 }
 

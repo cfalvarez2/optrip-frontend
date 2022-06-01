@@ -1,7 +1,7 @@
 import React, {useReducer, useState} from "react";
 import { Image, Header, LandingFormContainer, PageContainer, InstructionContainer, Instruction, FormContainer, FormColumn, DateContainer, DateLabel, FormRow, Optional, StyledButton } from "./styles/LandingForm.styled";
 import { TextInput, SelectInput } from "./styles/Inputs.styled";
-import {default as ciudades} from '../ciudades_regiones.json';
+import {default as ciudades} from '../ciudades_codigos.json';
 import Logo from '../optriplogo.png';
 import {DateRangeInput, DateSingleInput, Datepicker} from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
@@ -24,8 +24,8 @@ const initialState = {
 
 export default function LandingForm() {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const [From, setFrom] = useState('Santiago');
-    const [To, setTo] = useState('Santiago');
+    const [From, setFrom] = useState('SCL');
+    const [To, setTo] = useState('SCL');
     const [SearchDate, setSearchDate] = useState(new Date());
     const [MaxTime, setMaxTime] = useState('');
     const [MaxCost, setMaxCost] = useState('');
@@ -50,14 +50,14 @@ export default function LandingForm() {
                         <FormColumn>
                             <SelectInput required id={'origen'} label={'Origen'} onChange={(input) => setFrom(input.target.value) }>
                             {ciudades.map((ciudad) => {
-                                return <option key={ciudad.nombre}>{ciudad.nombre}</option>;
+                                return <option key={ciudad.codigo}>{ciudad.codigo}</option>;
                             })}
                             </SelectInput>
                         </FormColumn>
                         <FormColumn>
                             <SelectInput required id={'origen'} label={'Destino'} onChange={(input) => setTo(input.target.value) }>
                             {ciudades.map((ciudad) => {
-                                return <option key={ciudad.nombre}>{ciudad.nombre}</option>;
+                                return <option key={ciudad.codigo}>{ciudad.codigo}</option>;
                             })}
                             </SelectInput>
                         </FormColumn>
