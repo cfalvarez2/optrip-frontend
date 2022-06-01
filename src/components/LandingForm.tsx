@@ -1,11 +1,11 @@
 import React, {useReducer, useState} from "react";
-import { Image, Header, LandingFormContainer, PageContainer, InstructionContainer, Instruction, FormContainer, FormColumn, DateContainer, DateLabel, FormRow, Optional } from "./styles/LandingForm.styled";
+import { Image, Header, LandingFormContainer, PageContainer, InstructionContainer, Instruction, FormContainer, FormColumn, DateContainer, DateLabel, FormRow, Optional, StyledButton } from "./styles/LandingForm.styled";
 import { TextInput, SelectInput } from "./styles/Inputs.styled";
 import {default as ciudades} from '../ciudades_regiones.json';
 import Logo from '../optriplogo.png';
 import {DateRangeInput, DateSingleInput, Datepicker} from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
-
+import FlightsDisplay from "./FlightsDisplay";
 const initialState = {
     date: new Date(),
     showDatepicker: false,
@@ -30,7 +30,6 @@ export default function LandingForm() {
     const [MaxTime, setMaxTime] = useState('');
     const [MaxCost, setMaxCost] = useState('');
 
-
     return (
         <>
         {console.log(From)}
@@ -39,6 +38,7 @@ export default function LandingForm() {
         {console.log(MaxTime)}
         {console.log(MaxCost)}
         <PageContainer>
+       
             <Image src={Logo} />
             <Header>OPTRIP</Header>
             <LandingFormContainer>
@@ -85,6 +85,13 @@ export default function LandingForm() {
                         <FormColumn>
                             <TextInput type="number" required id="Presupuesto" label="Presupuesto" onChange={(input) => setMaxCost(input.target.value) }/>
                         </FormColumn>
+                    </FormRow>
+                    <FormRow>
+                    <FormColumn>
+                            <StyledButton as="a" href={`flights/${From}/${To}/${state.date}`} >
+                                Buscar
+                            </StyledButton>
+                            </FormColumn>
                     </FormRow>
                 </FormContainer>
             </LandingFormContainer>
