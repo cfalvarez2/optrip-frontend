@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<LandingForm />}>
             
           </Route>
-          <Route path="/flights" element={<FlightsDisplay />}>
+          <Route path="/flights/:from/:to/:date" element={<FlightsDisplay />}>
             
           </Route>
 

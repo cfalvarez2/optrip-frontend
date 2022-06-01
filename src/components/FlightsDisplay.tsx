@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import { FlightContainer, Item } from "./styles/Flight.styled";
 import Logo from '../optriplogo.png';
 import { LinearProgress } from "@mui/material";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-
-export default function Cart() {
+export default function FlightsDisplay() {
+    const data = useParams()
+    var date = new Date(data.date)
+    console.log(getFormattedDate(date))
     const [Flights, setFlights]  = useState([ 
         {key: 1, name: 'Vuelo 1', price: 1, takeoff_time: 'Hora 1',duration: 'Duracion'},
         {key: 2, name: 'Vuelo 2', price: 2, takeoff_time: 'Hora 2',duration: 'Duracion'},
@@ -19,7 +23,24 @@ export default function Cart() {
         setFlights(Flights);
     }, [setFlights])
     const [fetching, setFetching] = useState(true)
-
+    useEffect(() => {
+        axios.get(`$http://localhost:5000/flights`,
+        {params:{origin: "SCL", destination: "CCP", date: "31/05/2022"}}
+        ).then(( response ) => {
+            console.log(response)
+          })
+        })
+        function getFormattedDate(date:Date) {
+            var year = date.getFullYear();
+          
+            var month = (1 + date.getMonth()).toString();
+            month = month.length > 1 ? month : '0' + month;
+          
+            var day = date.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+            
+            return month + '/' + day + '/' + year;
+          }
     return !fetching ? (
         <PageContainer>
                         

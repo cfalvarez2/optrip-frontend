@@ -5,6 +5,7 @@ import {default as ciudades} from '../ciudades_regiones.json';
 import Logo from '../optriplogo.png';
 import {DateRangeInput, DateSingleInput, Datepicker} from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
+import FlightsDisplay from "./FlightsDisplay";
 const initialState = {
     date: new Date(),
     showDatepicker: false,
@@ -87,7 +88,7 @@ export default function LandingForm() {
                     </FormRow>
                     <FormRow>
                     <FormColumn>
-                            <StyledButton as="a" href="flights">
+                            <StyledButton as="a" href={`flights/${From}/${To}/${state.date}`} >
                                 Buscar
                             </StyledButton>
                             </FormColumn>
