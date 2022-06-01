@@ -115,3 +115,14 @@ export const DateLabel = styled.h4`
     font-weight: bold;
     color: #283346;
 `
+export const StyledButton = styled.button`
+display: inline-block;
+color: black;
+font-size: 1em;
+margin: 1em;
+padding: 0.25em 1em;
+border: 2px solid blakc;
+border-radius: 3px;
+display: block;
+background:teal
+`
