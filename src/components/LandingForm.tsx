@@ -6,6 +6,7 @@ import Logo from '../optriplogo.png';
 import {DateRangeInput, DateSingleInput, Datepicker} from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
 import FlightsDisplay from "./FlightsDisplay";
+import { Link } from "react-router-dom";
 const initialState = {
     date: new Date(),
     showDatepicker: false,
@@ -88,9 +89,13 @@ export default function LandingForm() {
                     </FormRow>
                     <FormRow>
                     <FormColumn>
-                            <StyledButton as="a" href={`flights/${From}/${To}/${state.date}`} >
+                            
+                            <Link to="/flights" state={{From:From, To:To, Date:state.date}}>
+                            <StyledButton>
                                 Buscar
                             </StyledButton>
+                                </Link>
+                            
                             </FormColumn>
                     </FormRow>
                 </FormContainer>
