@@ -2,16 +2,14 @@ import styled from "styled-components";
 import background_image from "../../wallpaper.jpg";
 
 export const PageContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 90vh;
+  width: 99vw;
   display: flex;
   /* border: 3px solid #283346; */
   /* border-radius: 10px; */
   justify-content: center;
   display: flex;
   flex-direction: column;
-  background: url(${background_image});
-  background-size: 100vw 100vh;
 `;
 
 /* Unused */
@@ -36,7 +34,7 @@ export const PageContainer = styled.div`
 // `
 export const Header = styled.h1`
   text-align: center;
-  font-size: 60px;
+  font-size: 40px;
   color: teal;
   &:hover {
     opacity: 70%;
@@ -44,8 +42,11 @@ export const Header = styled.h1`
 `;
 export const Image = styled.img`
   flex: 1;
-  max-width: 10vw;
+  max-width: 7vw;
   opacity: 90%;
+  position: absolute;
+  top: 1vh;
+  left: 3vw;
 `;
 
 export const LandingFormContainer = styled.div`
@@ -59,6 +60,8 @@ export const LandingFormContainer = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: column;
+  background: url(${background_image});
+  background-size: 100vw 100vh;
 `;
 
 export const InstructionContainer = styled.div`
@@ -75,6 +78,8 @@ export const InstructionContainer = styled.div`
 export const Instruction = styled.h1`
   text-align: center;
   font-size: 34px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 `;
 
 export const Optional = styled.h2`
@@ -116,16 +121,32 @@ export const DateLabel = styled.h4`
   transform: translate(100%, -220%);
   font-size: 20px;
   font-weight: bold;
-  color: #283346;
+  color: #fff;
 `;
 export const StyledButton = styled.button`
-  display: inline-block;
-  color: black;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid blakc;
-  border-radius: 3px;
-  display: block;
   background: teal;
+  display: block;
+  cursor: pointer;
+  color: #ffff;
+  margin-top: 0.75em;
+  padding: 0.25em 1em;
+  font-size: 16px;
+  border: 2px solid #283346;
+  flex: 1;
+  touch-action: manipulation;
+  border-radius: 30px;
+  font-weight: 600;
+  padding: 0.5em 0.2em;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+  &:active {
+    background-color: #3e8ffa;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
+  }
 `;

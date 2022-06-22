@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useRef } from "react";
 import {
   Image,
   Header,
@@ -14,9 +14,13 @@ import {
   Optional,
   StyledButton,
 } from "./styles/LandingForm.styled";
-import { TextInput, SelectInput } from "./styles/Inputs.styled";
+import { Form, IconButton, Input, SelectInput } from "./styles/Inputs.styled";
 import { default as ciudades } from "../ciudades_codigos.json";
+import Button from "@mui/material/Button";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Logo from "../optriplogo.png";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   DateRangeInput,
   DateSingleInput,
@@ -48,7 +52,42 @@ export default function LandingForm() {
   const [SearchDate, setSearchDate] = useState(new Date());
   const [MaxTime, setMaxTime] = useState("");
   const [MaxCost, setMaxCost] = useState("");
+  const [inputTime, setInputTime] = useState("");
+  const [inputCost, setInputCost] = useState("");
+  const [barOpenedTime, setBarOpenedTime] = useState(false);
+  const [barOpenedCost, setBarOpenedCost] = useState(false);
+  const formRefTime = useRef();
+  const formRefCost = useRef();
+  const inputFocusTime: any = useRef();
+  const inputFocusCost: any = useRef();
+  const navigate = useNavigate();
 
+  const onFormSubmitTime = (e: any) => {
+    // When form submited, clear input, close the searchbar and do something with input
+    e.preventDefault();
+    setInputTime("");
+    setBarOpenedTime(false);
+    // After form submit, do what you want with the input value
+    console.log(`Form was submited with input: ${inputTime}`);
+  };
+  const onFormSubmit = (e: any) => {
+    // When form submited, clear input, close the searchbar and do something with input
+    e.preventDefault();
+    setInputCost("");
+    setBarOpenedCost(false);
+    // After form submit, do what you want with the input value
+    console.log(`Form was submited with input: ${inputCost}`);
+  };
+
+  function onClickButton() {
+    return (
+      <Navigate
+        to="/flights"
+        state={{ From: From, To: To, Date: state.date }}
+        replace={true}
+      />
+    );
+  }
   return (
     <>
       {console.log(From)}
@@ -107,40 +146,96 @@ export default function LandingForm() {
                 </DateContainer>
               </FormColumn>
             </FormRow>
-            <FormRow>
-              <InstructionContainer>
+            {/* <FormRow> */}
+            {/* <InstructionContainer>
                 <Optional>
                   Valores opcionales, "Tiempo" en horas y "Presupuesto" en CLP
                 </Optional>
-              </InstructionContainer>
-            </FormRow>
+              </InstructionContainer> */}
+            {/* </FormRow> */}
             <FormRow>
               <FormColumn>
-                <TextInput
-                  type="number"
-                  required
-                  id="Tiempo Max"
-                  label="Tiempo Max"
-                  onChange={(input) => setMaxTime(input.target.value)}
-                />
+                <Form
+                  barOpened={barOpenedTime}
+                  onClick={() => {
+                    // When form clicked, set state of baropened to true and focus the input
+                    setBarOpenedTime(true);
+                    inputFocusTime.current.focus();
+                  }}
+                  // on focus open search bar
+                  onFocus={() => {
+                    setBarOpenedTime(true);
+                    inputFocusTime.current.focus();
+                  }}
+                  // on blur close search bar
+                  onBlur={() => {
+                    setBarOpenedTime(false);
+                  }}
+                  // On submit, call the onFormSubmit function
+                  onSubmit={onFormSubmit}
+                  ref={formRefTime}
+                  id="time"
+                >
+                  <IconButton type="submit" barOpened={barOpenedTime} id="time">
+                    <AttachMoneyIcon />
+                  </IconButton>
+                  <Input
+                    id="time"
+                    onChange={(e) => setInputTime(e.target.value)}
+                    ref={inputFocusTime}
+                    value={inputTime}
+                    barOpened={barOpenedTime}
+                    placeholder="Cantidad máxima de horas..."
+                  />
+                </Form>
               </FormColumn>
               <FormColumn>
-                <TextInput
-                  type="number"
-                  required
-                  id="Presupuesto"
-                  label="Presupuesto"
-                  onChange={(input) => setMaxCost(input.target.value)}
-                />
+                <Form
+                  barOpened={barOpenedCost}
+                  onClick={() => {
+                    // When form clicked, set state of baropened to true and focus the input
+                    setBarOpenedCost(true);
+                    inputFocusCost.current.focus();
+                  }}
+                  // on focus open search bar
+                  onFocus={() => {
+                    setBarOpenedCost(true);
+                    inputFocusCost.current.focus();
+                  }}
+                  // on blur close search bar
+                  onBlur={() => {
+                    setBarOpenedCost(false);
+                  }}
+                  // On submit, call the onFormSubmit function
+                  onSubmit={onFormSubmit}
+                  ref={formRefCost}
+                  id="cost"
+                >
+                  <IconButton type="submit" barOpened={barOpenedCost} id="cost">
+                    <AccessTimeIcon />
+                  </IconButton>
+                  <Input
+                    id="cost"
+                    onChange={(e) => setInputCost(e.target.value)}
+                    ref={inputFocusCost}
+                    value={inputCost}
+                    barOpened={barOpenedCost}
+                    placeholder="Cantidad máxima de horas"
+                  />
+                </Form>
               </FormColumn>
             </FormRow>
             <FormRow>
-              <Link
-                to="/flights"
-                state={{ From: From, To: To, Date: state.date }}
+              <StyledButton
+                onClick={() => {
+                  navigate("/flights", {
+                    replace: true,
+                    state: { From: From, To: To, Date: state.date },
+                  });
+                }}
               >
-                <StyledButton>Buscar</StyledButton>
-              </Link>
+                Buscar
+              </StyledButton>
             </FormRow>
           </FormContainer>
         </LandingFormContainer>
