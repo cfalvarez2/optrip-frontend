@@ -4,13 +4,21 @@ import { useEffect, useState } from "react";
 import { FlightContainer, Item } from "./styles/Flight.styled";
 import Logo from '../optriplogo.png';
 import { LinearProgress } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { Instruction } from "./styles/LandingForm.styled";
 
 export default function FlightsDisplay() {
-    const data = useParams()
-    var date = new Date(data.date)
+    interface CustomizedState {
+        From: String,
+        To:String,
+        Date:Date
+      }
+    const location = useLocation()
+    const state = location.state as CustomizedState
+    const from = state.From
+    const to = state.To 
+    var date = new Date(state.Date)
     console.log(getFormattedDate(date))
     const [Flights, setFlights]  = useState([]);
 
@@ -22,7 +30,7 @@ export default function FlightsDisplay() {
             getFlights()
       });
     const getFlights = ()=>{
-    const payload = JSON.stringify({origin: data.from, destination: data.to, date: getFormattedDate(date)})
+    const payload = JSON.stringify({origin: from, destination: to, date: getFormattedDate(date)})
         axios.post("http://localhost:5000/flights",
         JSON.parse(payload)
         ).then(( response ) => {
