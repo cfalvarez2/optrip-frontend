@@ -78,8 +78,8 @@ export const InstructionContainer = styled.div`
 export const Instruction = styled.h1`
   text-align: center;
   font-size: 34px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+    1px 1px 0 #fff;
 `;
 
 export const Optional = styled.h2`
