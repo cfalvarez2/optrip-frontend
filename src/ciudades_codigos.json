@@ -1,18 +1,9 @@
-[
-    {"nombre":"Santiago", "codigo": "SCL"},
+[    {"nombre":"Santiago", "codigo": "SCL"},
     {"nombre":"Arica", "codigo":"ARI"},
     {"nombre":"Iquique", "codigo":"IQQ"},
     {"nombre":"Antofagasta", "codigo":"ANF"},
     {"nombre":"Copiapó", "codigo":"CJC"},
-    {"nombre":"La Serena"},
-    {"nombre":"Valparaíso"},
-    {"nombre":"Rancagua"},
-    {"nombre":"Talca"},
     {"nombre":"Concepción", "codigo":"CCP"},
-    {"nombre":"Chillan"},
     {"nombre":"Temuco", "codigo":"ZCO"},
-    {"nombre":"Valdivia"},
     {"nombre":"Puerto Montt", "codigo":"PMC"},
-    {"nombre":"Coyhaique"},
-    {"nombre":"Punta Arenas", "codigo":"PUQ"}
-]
+    {"nombre":"Punta Arenas", "codigo":"PUQ"}]
