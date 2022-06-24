@@ -47,8 +47,8 @@ function reducer(state: any, action: any) {
 
 export default function LandingForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [From, setFrom] = useState("SCL");
-  const [To, setTo] = useState("SCL");
+  const [From, setFrom] = useState({nombre:"Santiago", codigo: "SCL"});
+  const [To, setTo] = useState({nombre:"Santiago", codigo: "SCL"});
   const [Mean, setMean] = useState("Avion");
   const [SearchDate, setSearchDate] = useState(new Date());
   const [MaxTime, setMaxTime] = useState("");
@@ -69,7 +69,6 @@ export default function LandingForm() {
     setInputTime("");
     setBarOpenedTime(false);
     // After form submit, do what you want with the input value
-    console.log(`Form was submited with input: ${inputTime}`);
   };
   const onFormSubmit = (e: any) => {
     // When form submited, clear input, close the searchbar and do something with input
@@ -77,7 +76,6 @@ export default function LandingForm() {
     setInputCost("");
     setBarOpenedCost(false);
     // After form submit, do what you want with the input value
-    console.log(`Form was submited with input: ${inputCost}`);
   };
 
   function onClickButton() {
@@ -91,11 +89,6 @@ export default function LandingForm() {
   }
   return (
     <>
-      {console.log(From)}
-      {console.log(To)}
-      {console.log(state.date)}
-      {console.log(MaxTime)}
-      {console.log(MaxCost)}
       <PageContainer>
         <Image src={Logo} />
         <Header>OPTRIP</Header>
@@ -112,22 +105,32 @@ export default function LandingForm() {
                   required
                   id={"origen"}
                   label={"Origen"}
-                  onChange={(input) => setFrom(input.target.value)}
+                  onChange={(input) => {
+                    const input_json = JSON.parse(input.target.value);
+                    setFrom(input_json);
+                  }}
                 >
                   {ciudades.map((ciudad) => {
-                    return <option key={ciudad.codigo}>{ciudad.codigo}</option>;
+                    return <option key={ciudad.codigo} value={`{"codigo":"${ciudad.codigo}", "nombre":"${ciudad.nombre}"}`}>
+                    {ciudad.nombre}
+                  </option>;
                   })}
                 </SelectInput>
               </FormColumn>
               <FormColumn>
                 <SelectInput
                   required
-                  id={"origen"}
+                  id={"destino"}
                   label={"Destino"}
-                  onChange={(input) => setTo(input.target.value)}
+                  onChange={(input) => {
+                    const input_json = JSON.parse(input.target.value);
+                    setTo(input_json);
+                  }}
                 >
                   {ciudades.map((ciudad) => {
-                    return <option key={ciudad.codigo}>{ciudad.codigo}</option>;
+                    return <option key={ciudad.codigo} value={`{"codigo":"${ciudad.codigo}", "nombre":"${ciudad.nombre}"}`}>
+                    {ciudad.nombre}
+                  </option>;
                   })}
                 </SelectInput>
               </FormColumn>
