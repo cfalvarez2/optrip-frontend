@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { Instruction } from "./styles/LandingForm.styled";
 import Bus from "./Bus";
-export default function FlightsDisplay() {
+export default function TripsDisplay() {
   interface CustomizedState {
     From: any;
     To: any;

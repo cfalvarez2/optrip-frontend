@@ -225,7 +225,7 @@ export default function LandingForm() {
             <FormRow>
               <StyledButton
                 onClick={() => {
-                  navigate("/flights", {
+                  navigate("/trips", {
                     replace: true,
                     state: {
                       From: From,
