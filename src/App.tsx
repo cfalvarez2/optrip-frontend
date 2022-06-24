@@ -9,12 +9,9 @@ function App() {
     <div>
       <GlobalStyles/>
 
-
     <BrowserRouter>
     <Routes>
-
-          <Route path="/" element={<LandingForm />}>
-            
+          <Route path="/" element={<LandingForm />}>            
           </Route>
           <Route path="/flights" element={<FlightsDisplay />}>
             

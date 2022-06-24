@@ -20,7 +20,14 @@ const InputGroup = styled.div`
   width: 100%;
   max-width: 100%;
 `;
-
+const MeanInputGroup = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5em;
+  width: 30%;
+  max-width: 100%;
+`;
 const InputLabel = styled.label`
   flex: 1;
   position: relative;
@@ -141,6 +148,17 @@ export const SelectInput: React.FC<SelectProps> = ({ id, label, ...rest }) => {
         {label}
       </InputLabel>
     </InputGroup>
+  );
+};
+
+export const MeanSelectInput: React.FC<SelectProps> = ({ id, label, ...rest }) => {
+  return (
+    <MeanInputGroup>
+      <SelectField id={id} {...rest} />
+      <InputLabel htmlFor={id} id={id}>
+        {label}
+      </InputLabel>
+    </MeanInputGroup>
   );
 };
 

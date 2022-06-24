@@ -14,7 +14,7 @@ export const Icon = styled.div`
   flex: 1;
 `;
 
-export const FlightContainer = styled.div`
+export const TripContainer = styled.div`
   padding: 4vh 1vw;
   background: #283346;
   opacity: 90%;
