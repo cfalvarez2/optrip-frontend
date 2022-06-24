@@ -21,11 +21,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Logo from "../optriplogo.png";
 import { Navigate, useNavigate } from "react-router-dom";
-import {
-  DateRangeInput,
-  DateSingleInput,
-  Datepicker,
-} from "@datepicker-react/styled";
+import { DateRangeInput, DateSingleInput, Datepicker } from "@datepicker-react/styled";
 import { ThemeProvider } from "styled-components";
 import FlightsDisplay from "./FlightsDisplay";
 import { Link } from "react-router-dom";
@@ -80,13 +76,7 @@ export default function LandingForm() {
   };
 
   function onClickButton() {
-    return (
-      <Navigate
-        to="/flights"
-        state={{ From: From, To: To, Date: state.date }}
-        replace={true}
-      />
-    );
+    return <Navigate to="/flights" state={{ From: From, To: To, Date: state.date }} replace={true} />;
   }
   return (
     <>
@@ -100,31 +90,19 @@ export default function LandingForm() {
         <Header>OPTRIP</Header>
         <LandingFormContainer>
           <InstructionContainer>
-            <Instruction>
-              Ingresa los parámetros solicitados para realizar la búsqueda:{" "}
-            </Instruction>
+            <Instruction>Ingresa los parámetros solicitados para realizar la búsqueda: </Instruction>
           </InstructionContainer>
           <FormContainer>
             <FormRow>
               <FormColumn>
-                <SelectInput
-                  required
-                  id={"origen"}
-                  label={"Origen"}
-                  onChange={(input) => setFrom(input.target.value)}
-                >
+                <SelectInput required id={"origen"} label={"Origen"} onChange={(input) => setFrom(input.target.value)}>
                   {ciudades.map((ciudad) => {
                     return <option key={ciudad.codigo}>{ciudad.codigo}</option>;
                   })}
                 </SelectInput>
               </FormColumn>
               <FormColumn>
-                <SelectInput
-                  required
-                  id={"origen"}
-                  label={"Destino"}
-                  onChange={(input) => setTo(input.target.value)}
-                >
+                <SelectInput required id={"origen"} label={"Destino"} onChange={(input) => setTo(input.target.value)}>
                   {ciudades.map((ciudad) => {
                     return <option key={ciudad.codigo}>{ciudad.codigo}</option>;
                   })}
@@ -134,12 +112,8 @@ export default function LandingForm() {
                 <DateContainer>
                   <DateLabel>Fecha</DateLabel>
                   <DateSingleInput
-                    onDateChange={(data) =>
-                      dispatch({ type: "dateChange", payload: data })
-                    }
-                    onFocusChange={(focusedInput) =>
-                      dispatch({ type: "focusChange", payload: focusedInput })
-                    }
+                    onDateChange={(data) => dispatch({ type: "dateChange", payload: data })}
+                    onFocusChange={(focusedInput) => dispatch({ type: "focusChange", payload: focusedInput })}
                     date={state.date} // Date or null
                     showDatepicker={state.showDatepicker} // Boolean
                   />
