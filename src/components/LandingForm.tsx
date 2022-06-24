@@ -11,20 +11,15 @@ import {
   DateContainer,
   DateLabel,
   FormRow,
-  Optional,
   StyledButton,
 } from "./styles/LandingForm.styled";
 import { Form, IconButton, Input, MeanSelectInput, SelectInput } from "./styles/Inputs.styled";
 import { default as ciudades } from "../ciudades_codigos.json";
-import Button from "@mui/material/Button";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Logo from "../optriplogo.png";
 import { Navigate, useNavigate } from "react-router-dom";
-import { DateRangeInput, DateSingleInput, Datepicker } from "@datepicker-react/styled";
-import { ThemeProvider } from "styled-components";
-import FlightsDisplay from "./FlightsDisplay";
-import { Link } from "react-router-dom";
+import { DateSingleInput } from "@datepicker-react/styled";
 const initialState = {
   date: new Date(),
   showDatepicker: false,
@@ -43,10 +38,9 @@ function reducer(state: any, action: any) {
 
 export default function LandingForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [From, setFrom] = useState({nombre:"Santiago", codigo: "SCL"});
-  const [To, setTo] = useState({nombre:"Santiago", codigo: "SCL"});
+  const [From, setFrom] = useState({ nombre: "Santiago", codigo: "SCL" });
+  const [To, setTo] = useState({ nombre: "Santiago", codigo: "SCL" });
   const [Mean, setMean] = useState("Avion");
-  const [SearchDate, setSearchDate] = useState(new Date());
   const [MaxTime, setMaxTime] = useState("");
   const [MaxCost, setMaxCost] = useState("");
   const [inputTime, setInputTime] = useState("");
@@ -98,11 +92,12 @@ export default function LandingForm() {
                     setFrom(input_json);
                   }}
                 >
-
                   {ciudades.map((ciudad) => {
-                    return <option key={ciudad.codigo} value={`{"codigo":"${ciudad.codigo}", "nombre":"${ciudad.nombre}"}`}>
-                    {ciudad.nombre}
-                  </option>;
+                    return (
+                      <option key={ciudad.codigo} value={`{"codigo":"${ciudad.codigo}", "nombre":"${ciudad.nombre}"}`}>
+                        {ciudad.nombre}
+                      </option>
+                    );
                   })}
                 </SelectInput>
               </FormColumn>
@@ -117,9 +112,11 @@ export default function LandingForm() {
                   }}
                 >
                   {ciudades.map((ciudad) => {
-                    return <option key={ciudad.codigo} value={`{"codigo":"${ciudad.codigo}", "nombre":"${ciudad.nombre}"}`}>
-                    {ciudad.nombre}
-                  </option>;
+                    return (
+                      <option key={ciudad.codigo} value={`{"codigo":"${ciudad.codigo}", "nombre":"${ciudad.nombre}"}`}>
+                        {ciudad.nombre}
+                      </option>
+                    );
                   })}
                 </SelectInput>
               </FormColumn>
@@ -135,18 +132,18 @@ export default function LandingForm() {
                 </DateContainer>
               </FormColumn>
             </FormRow>
-            <FormRow> 
-                <MeanSelectInput
-                  required
-                  id={"mean"}
-                  label={"Medio de transporte"}
-                  onChange={(input) => setMean(input.target.value)}
-                >
-                  {["Avion", "Bus", "Ambos"].map((medio) => {
-                    return <option key={medio}>{medio}</option>;
-                  })}
-                </MeanSelectInput>
-            </FormRow> 
+            <FormRow>
+              <MeanSelectInput
+                required
+                id={"mean"}
+                label={"Medio de transporte"}
+                onChange={(input) => setMean(input.target.value)}
+              >
+                {["Avion", "Bus", "Ambos"].map((medio) => {
+                  return <option key={medio}>{medio}</option>;
+                })}
+              </MeanSelectInput>
+            </FormRow>
             <FormRow>
               <FormColumn>
                 <Form
@@ -175,8 +172,10 @@ export default function LandingForm() {
                   </IconButton>
                   <Input
                     id="time"
-                    onChange={(e) =>{setMaxTime(e.target.value)
-                       setInputTime(e.target.value)}}
+                    onChange={(e) => {
+                      setMaxTime(e.target.value);
+                      setInputTime(e.target.value);
+                    }}
                     ref={inputFocusTime}
                     value={inputTime}
                     barOpened={barOpenedTime}
@@ -211,8 +210,10 @@ export default function LandingForm() {
                   </IconButton>
                   <Input
                     id="cost"
-                    onChange={(e) => {setMaxCost(e.target.value)
-                      setInputCost(e.target.value)}}
+                    onChange={(e) => {
+                      setMaxCost(e.target.value);
+                      setInputCost(e.target.value);
+                    }}
                     ref={inputFocusCost}
                     value={inputCost}
                     barOpened={barOpenedCost}
@@ -226,7 +227,14 @@ export default function LandingForm() {
                 onClick={() => {
                   navigate("/flights", {
                     replace: true,
-                    state: { From: From, To: To, Date: state.date, TransportMean:Mean, MaxTime:MaxTime, MaxCost:MaxCost },
+                    state: {
+                      From: From,
+                      To: To,
+                      Date: state.date,
+                      TransportMean: Mean,
+                      MaxTime: MaxTime,
+                      MaxCost: MaxCost,
+                    },
                   });
                 }}
               >
