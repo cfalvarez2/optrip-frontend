@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Link, Route, Router, Routes } from 'react-router-dom';
-import FlightsDisplay from './components/FlightsDisplay';
 import LandingForm from './components/LandingForm';
 import GlobalStyles from './Global';
+import TripsDisplay from './components/TripsDisplay';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
     <Routes>
           <Route path="/" element={<LandingForm />}>            
           </Route>
-          <Route path="/flights" element={<FlightsDisplay />}>
+          <Route path="/trips" element={<TripsDisplay />}>
             
           </Route>
 
