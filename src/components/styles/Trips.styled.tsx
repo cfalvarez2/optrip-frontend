@@ -40,4 +40,5 @@ export const StyledProductList = styled.div`
   display: auto;
   grid-template-columns: auto auto auto;
   grid-row-gap: 50px;
+  margin-top: 15vh;
 `;

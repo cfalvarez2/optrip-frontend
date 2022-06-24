@@ -14,7 +14,7 @@ import {
   Optional,
   StyledButton,
 } from "./styles/LandingForm.styled";
-import { Form, IconButton, Input, SelectInput } from "./styles/Inputs.styled";
+import { Form, IconButton, Input, MeanSelectInput, SelectInput } from "./styles/Inputs.styled";
 import { default as ciudades } from "../ciudades_codigos.json";
 import Button from "@mui/material/Button";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
@@ -49,6 +49,7 @@ export default function LandingForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [From, setFrom] = useState("SCL");
   const [To, setTo] = useState("SCL");
+  const [Mean, setMean] = useState("Avion");
   const [SearchDate, setSearchDate] = useState(new Date());
   const [MaxTime, setMaxTime] = useState("");
   const [MaxCost, setMaxCost] = useState("");
@@ -146,13 +147,18 @@ export default function LandingForm() {
                 </DateContainer>
               </FormColumn>
             </FormRow>
-            {/* <FormRow> */}
-            {/* <InstructionContainer>
-                <Optional>
-                  Valores opcionales, "Tiempo" en horas y "Presupuesto" en CLP
-                </Optional>
-              </InstructionContainer> */}
-            {/* </FormRow> */}
+            <FormRow> 
+                <MeanSelectInput
+                  required
+                  id={"mean"}
+                  label={"Medio de transporte"}
+                  onChange={(input) => setMean(input.target.value)}
+                >
+                  {["Avion", "Bus", "Ambos"].map((medio) => {
+                    return <option key={medio}>{medio}</option>;
+                  })}
+                </MeanSelectInput>
+            </FormRow> 
             <FormRow>
               <FormColumn>
                 <Form
@@ -177,11 +183,12 @@ export default function LandingForm() {
                   id="time"
                 >
                   <IconButton type="submit" barOpened={barOpenedTime} id="time">
-                    <AttachMoneyIcon />
+                    <AccessTimeIcon />
                   </IconButton>
                   <Input
                     id="time"
-                    onChange={(e) => setInputTime(e.target.value)}
+                    onChange={(e) =>{setMaxTime(e.target.value)
+                       setInputTime(e.target.value)}}
                     ref={inputFocusTime}
                     value={inputTime}
                     barOpened={barOpenedTime}
@@ -212,15 +219,16 @@ export default function LandingForm() {
                   id="cost"
                 >
                   <IconButton type="submit" barOpened={barOpenedCost} id="cost">
-                    <AccessTimeIcon />
+                    <AttachMoneyIcon />
                   </IconButton>
                   <Input
                     id="cost"
-                    onChange={(e) => setInputCost(e.target.value)}
+                    onChange={(e) => {setMaxCost(e.target.value)
+                      setInputCost(e.target.value)}}
                     ref={inputFocusCost}
                     value={inputCost}
                     barOpened={barOpenedCost}
-                    placeholder="Cantidad máxima de horas"
+                    placeholder="Cantidad máxima de pesos"
                   />
                 </Form>
               </FormColumn>
@@ -230,7 +238,7 @@ export default function LandingForm() {
                 onClick={() => {
                   navigate("/flights", {
                     replace: true,
-                    state: { From: From, To: To, Date: state.date },
+                    state: { From: From, To: To, Date: state.date, TransportMean:Mean, MaxTime:MaxTime, MaxCost:MaxCost },
                   });
                 }}
               >
